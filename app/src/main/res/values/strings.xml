@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">UserListApp</string>
     <string name="action_settings">Settings</string>
+    <string name="create_user_validation_text">Please enter both user name and role to create a user</string>
+    <string name="create_user_button">Create New User</string>
+    <string name="enter_role_hint">Enter User Role</string>
+    <string name="enter_user_hint">Enter User Name</string>
 </resources>

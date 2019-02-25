@@ -26,20 +26,29 @@ public class CreateUserActivity extends AppCompatActivity {
 
         createUserActivityBinding = DataBindingUtil.setContentView(this, R.layout.user_create);
 
-        String user = createUserActivityBinding.enterUser.getText().toString();
+        createUserActivityBinding.validationText.setVisibility(View.INVISIBLE);
 
-        String role = createUserActivityBinding.enterRole.getText().toString();
+        createUserActivityBinding.createButton.setOnClickListener(view -> {
 
-        createUserActivityBinding.submitDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            String user = createUserActivityBinding.enterUserName.getText().toString();
 
+            String role = createUserActivityBinding.enterUserRole.getText().toString();
+
+            if( !user.isEmpty() && !role.isEmpty()){
                 UserApi userApi = RestApiClient.getRestApiClient().create(UserApi.class);
                 userApi.createUser(user, role).enqueue(new Callback<CreateUser>() {
                     @Override
                     public void onResponse(@NonNull Call<CreateUser> call, @NonNull Response<CreateUser> response) {
                         if(response.isSuccessful()){
-                            Log.i("***123", response.body() + "");
+
+                            CreateUser createUser = response.body();
+                            if(createUser!=null){
+                                createUserActivityBinding.validationText.setVisibility(View.VISIBLE);
+                                createUserActivityBinding.validationText.setTextColor(getResources().getColor(R.color.green));
+                                createUserActivityBinding.validationText.setText(String.format("User \" %s \" successfully created at %s", createUser.getName(), createUser.getCreatedAt()));
+                                createUserActivityBinding.enterUserName.setText("");
+                                createUserActivityBinding.enterUserRole.setText("");
+                            }
                         }
                     }
 
@@ -48,7 +57,13 @@ public class CreateUserActivity extends AppCompatActivity {
 
                     }
                 });
+            }else{
+                createUserActivityBinding.validationText.setVisibility(View.VISIBLE);
+                createUserActivityBinding.validationText.setTextColor(getResources().getColor(R.color.red));
+                createUserActivityBinding.validationText.setText(getResources().getString(R.string.create_user_validation_text));
             }
+
+
         });
     }
 }
