@@ -31,10 +31,6 @@ public class UserDataSource extends PageKeyedDataSource<Long, UserData> {
         return networkState;
     }
 
-    public MutableLiveData getInitialLoading() {
-        return initialLoading;
-    }
-
     @Override
     public void loadInitial(@NonNull PageKeyedDataSource.LoadInitialParams<Long> params,
                             @NonNull final PageKeyedDataSource.LoadInitialCallback<Long, UserData> callback) {
