@@ -8,9 +8,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestApiClient {
 
-    private static String BASE_URL = "https://reqres.in/";
-
     private static Retrofit retrofit;
+
+    private RestApiClient(){}
 
     public static Retrofit getRestApiClient() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -20,6 +20,7 @@ public class RestApiClient {
         httpClient.addInterceptor(logging);
 
         if( retrofit == null ){
+            String BASE_URL = "https://reqres.in/";
             retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
