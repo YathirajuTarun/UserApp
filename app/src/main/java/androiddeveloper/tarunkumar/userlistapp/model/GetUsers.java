@@ -24,7 +24,7 @@ public class GetUsers implements Parcelable {
     @SerializedName("data")
     private List<UserData> userDataList;
 
-    protected GetUsers(Parcel in) {
+    private GetUsers(Parcel in) {
         page = in.readInt();
         per_page = in.readInt();
         total = in.readInt();

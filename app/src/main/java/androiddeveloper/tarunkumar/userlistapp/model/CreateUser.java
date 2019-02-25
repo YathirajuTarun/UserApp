@@ -20,7 +20,7 @@ public class CreateUser implements Parcelable {
     private String createdAt;
 
 
-    protected CreateUser(Parcel in) {
+    private CreateUser(Parcel in) {
         name = in.readString();
         job = in.readString();
         id = in.readString();

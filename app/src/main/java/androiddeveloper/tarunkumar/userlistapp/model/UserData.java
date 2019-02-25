@@ -21,7 +21,7 @@ public class UserData implements Parcelable {
     @SerializedName("avatar")
     private String avatar;
 
-    protected UserData(Parcel in) {
+    private UserData(Parcel in) {
         id = in.readInt();
         first_name = in.readString();
         last_name = in.readString();
